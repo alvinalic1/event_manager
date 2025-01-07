@@ -199,15 +199,4 @@ contents = CSV.open(
     dt = Time.strptime(datetime, '%m/%d/%y %H:%M')
     dt = dt.strftime("%k:%M")
     date_and_time.push(dt)
-    # dt = Time.parse(datetime)
-    # puts dt
-    # date = Date.strptime(datetime, "%d/%m/%Y")
-    # puts date
-    # puts datetime
-    
-
-    # dates.push(date_and_time[0])
-    # times.push(date_and_time[1])
-  end
-  puts date_and_time
-  
+    # dt = Time.p
