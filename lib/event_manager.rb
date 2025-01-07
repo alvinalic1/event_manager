@@ -196,7 +196,34 @@ contents = CSV.open(
 
   contents.each do |row|
     datetime = row[:regdate]
+    #Input string and format the date and time
     dt = Time.strptime(datetime, '%m/%d/%y %H:%M')
-    dt = dt.strftime("%k:%M")
+    dt = dt.hour
+    #I only care about the time and not the date so this formats it even further
+    # dt = dt.strftime("%k:%M")
+    
     date_and_time.push(dt)
-    # dt = Time.p
+    
+  end
+  puts date_and_time.sort
+
+  freqeuncy = Hash.new
+  date_and_time.each do |hour|
+    freqeuncy[hour] = date_and_time.count(hour)
+  end
+  
+puts freqeuncy
+
+freqeuncy.each {
+  |key, value| 
+  if value > 2 && key > 12
+    time = key - 12
+    puts "You should run your ad at #{time}pm because #{value} people registered"
+  elsif value > 2 && key <= 12
+    puts "You should run your ad at #{key}am because #{value} people registered"
+  end
+}
+
+
+
+  
