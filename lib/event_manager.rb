@@ -161,10 +161,23 @@ def clean_number(number)
 
 end
 
+#Method to add parenthesis and dash to make it look like a real phone number
+def format_number(number)
+  if(number.length == 10)
+    formatted = number.insert(0, '(')
+    formatted = formatted.insert(4, ')')
+    formatted = formatted.insert(8, '-')
+    formatted
+  else
+    number
+  end
+end
+
 contents.each do |row|
   phone_number = row[:homephone]
   clean_num = remove_special_characters(phone_number)
   formated_num = clean_number(clean_num)
-  puts clean_num + " ------------ " + formated_num
+  formated_num = format_number(formated_num)
+  puts formated_num
   
 end
