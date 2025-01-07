@@ -1,6 +1,7 @@
 require 'csv'
 require 'google/apis/civicinfo_v2'
 require 'erb'
+require 'time'
 puts 'Event Manager Initialized!'
 
 #Display the entire contents of the file
@@ -178,6 +179,35 @@ contents.each do |row|
   clean_num = remove_special_characters(phone_number)
   formated_num = clean_number(clean_num)
   formated_num = format_number(formated_num)
-  puts formated_num
+  #puts formated_num
   
 end
+
+
+#Part 2
+#
+contents = CSV.open(
+  'event_attendees.csv',
+  headers: true,
+  header_converters: :symbol
+  )
+
+  date_and_time = Array.new
+
+  contents.each do |row|
+    datetime = row[:regdate]
+    dt = Time.strptime(datetime, '%m/%d/%y %H:%M')
+    dt = dt.strftime("%k:%M")
+    date_and_time.push(dt)
+    # dt = Time.parse(datetime)
+    # puts dt
+    # date = Date.strptime(datetime, "%d/%m/%Y")
+    # puts date
+    # puts datetime
+    
+
+    # dates.push(date_and_time[0])
+    # times.push(date_and_time[1])
+  end
+  puts date_and_time
+  
