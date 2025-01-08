@@ -202,27 +202,58 @@ contents = CSV.open(
     #I only care about the time and not the date so this formats it even further
     # dt = dt.strftime("%k:%M")
     
-    date_and_time.push(dt)
+    #date_and_time.push(dt)
     
   end
-  puts date_and_time.sort
+  #puts date_and_time.sort
 
-  freqeuncy = Hash.new
-  date_and_time.each do |hour|
-    freqeuncy[hour] = date_and_time.count(hour)
-  end
+#   freqeuncy = Hash.new
+#   date_and_time.each do |hour|
+#     freqeuncy[hour] = date_and_time.count(hour)
+#   end
   
-puts freqeuncy
+# puts freqeuncy
 
-freqeuncy.each {
-  |key, value| 
-  if value > 2 && key > 12
-    time = key - 12
-    puts "You should run your ad at #{time}pm because #{value} people registered"
-  elsif value > 2 && key <= 12
-    puts "You should run your ad at #{key}am because #{value} people registered"
+# freqeuncy.each {
+#   |key, value| 
+#   if value > 2 && key > 12
+#     time = key - 12
+#     #puts "You should run your ad at #{time}pm because #{value} people registered"
+#   elsif value > 2 && key <= 12
+#     #puts "You should run your ad at #{key}am because #{value} people registered"
+#   end
+# }
+
+##Part 3
+#
+contents = CSV.open(
+  'event_attendees.csv',
+  headers: true,
+  header_converters: :symbol
+)
+
+date_array = Array.new
+DAYS_OF_WEEK = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday',' Saturday']
+contents.each do |row|
+  datetime = row[:regdate]
+  date = Date.strptime(datetime,'%m/%d/%y')
+  date = date.wday
+  date_array.push(date)
+end
+
+frequency = Hash.new()
+
+date_array.each do |day|
+  frequency[day] = date_array.count(day)
+end
+
+frequency.each {
+  |key, value|
+  if(value > 3)
+    puts "The best day to run your ad is #{DAYS_OF_WEEK[key]}"
   end
 }
+
 
 
 
